@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8xm2k1p5qw3a"]
+[gd_scene load_steps=10 format=3 uid="uid://c8xm2k1p5qw3a"]
 
 [ext_resource type="PackedScene" uid="uid://dqy5vk1r3qj7c" path="res://scenes/player.tscn" id="1_player"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
-sky_top_color = Color(0.385, 0.454, 0.55, 1)
-sky_horizon_color = Color(0.646, 0.656, 0.67, 1)
-ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
-ground_horizon_color = Color(0.646, 0.656, 0.67, 1)
+sky_top_color = Color(0.3, 0.5, 0.85, 1)
+sky_horizon_color = Color(0.6, 0.75, 0.95, 1)
+sky_curve = 0.1
+ground_bottom_color = Color(0.25, 0.32, 0.2, 1)
+ground_horizon_color = Color(0.45, 0.55, 0.45, 1)
 
 [sub_resource type="Sky" id="Sky_main"]
 sky_material = SubResource("ProceduralSkyMaterial_sky")
@@ -15,11 +16,24 @@ sky_material = SubResource("ProceduralSkyMaterial_sky")
 background_mode = 2
 sky = SubResource("Sky_main")
 ambient_light_source = 2
-ambient_light_color = Color(0.8, 0.8, 0.8, 1)
-ambient_light_energy = 0.5
+ambient_light_color = Color(0.9, 0.9, 0.85, 1)
+ambient_light_energy = 0.7
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
-albedo_color = Color(0.4, 0.45, 0.4, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass"]
+albedo_color = Color(0.32, 0.55, 0.18, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trunk"]
+albedo_color = Color(0.32, 0.22, 0.12, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leaves"]
+albedo_color = Color(0.22, 0.42, 0.14, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass_tuft"]
+albedo_color = Color(0.28, 0.5, 0.15, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cloud"]
+albedo_color = Color(1, 1, 1, 0.85)
+transparency = 1
 
 [node name="Main" type="Node3D"]
 
@@ -28,15 +42,311 @@ environment = SubResource("Environment_main")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 10, 0)
+light_energy = 1.15
 shadow_enabled = true
-shadow_bias = 0.1
-directional_shadow_max_distance = 100.0
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
-size = Vector3(50, 1, 50)
-material = SubResource("StandardMaterial3D_floor")
+size = Vector3(80, 1, 80)
+material = SubResource("StandardMaterial3D_grass")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Clouds" type="Node3D" parent="."]
+
+[node name="Cloud1" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(4, 0, 0, 0, 1.2, 0, 0, 0, 2.5, 20, 35, -15)
+radius = 3.0
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="Cloud1b" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 2, 26, 36, -14)
+radius = 2.5
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="Cloud2" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(5, 0, 0, 0, 1.5, 0, 0, 0, 3, -25, 38, 10)
+radius = 3.5
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="Cloud2b" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(3.5, 0, 0, 0, 1.2, 0, 0, 0, 2.2, -18, 37, 12)
+radius = 2.8
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="Cloud3" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(4.5, 0, 0, 0, 1.3, 0, 0, 0, 2.8, 5, 40, 30)
+radius = 3.2
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="Cloud4" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(3.8, 0, 0, 0, 1.1, 0, 0, 0, 2.4, -35, 36, -25)
+radius = 2.8
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="Cloud5" type="CSGSphere3D" parent="Clouds"]
+transform = Transform3D(5.5, 0, 0, 0, 1.6, 0, 0, 0, 3.2, 40, 42, 20)
+radius = 3.8
+material = SubResource("StandardMaterial3D_cloud")
+
+[node name="GrassTufts" type="Node3D" parent="."]
+
+[node name="Tuft01" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.6, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 3, 0.1, 5)
+radius = 0.5
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft02" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.5, 0, 0, 0, 0.35, 0, 0, 0, 0.45, -7, 0.08, 2)
+radius = 0.45
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft03" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.7, 0, 0, 0, 0.45, 0, 0, 0, 0.6, 12, 0.12, -4)
+radius = 0.55
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft04" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.55, 0, 0, 0, 0.38, 0, 0, 0, 0.5, -15, 0.09, 8)
+radius = 0.48
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft05" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.65, 0, 0, 0, 0.42, 0, 0, 0, 0.55, 8, 0.11, 12)
+radius = 0.52
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft06" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.5, 0, 0, 0, 0.32, 0, 0, 0, 0.42, -3, 0.07, -10)
+radius = 0.4
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft07" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.75, 0, 0, 0, 0.48, 0, 0, 0, 0.65, 18, 0.13, 6)
+radius = 0.58
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft08" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.58, 0, 0, 0, 0.36, 0, 0, 0, 0.48, -20, 0.08, -5)
+radius = 0.44
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft09" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.62, 0, 0, 0, 0.4, 0, 0, 0, 0.52, 5, 0.1, -18)
+radius = 0.5
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft10" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.68, 0, 0, 0, 0.44, 0, 0, 0, 0.58, -12, 0.11, 15)
+radius = 0.54
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft11" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.52, 0, 0, 0, 0.34, 0, 0, 0, 0.44, 22, 0.08, -12)
+radius = 0.42
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="Tuft12" type="CSGSphere3D" parent="GrassTufts"]
+transform = Transform3D(0.72, 0, 0, 0, 0.46, 0, 0, 0, 0.62, -8, 0.12, 20)
+radius = 0.56
+material = SubResource("StandardMaterial3D_grass_tuft")
+
+[node name="TreeLine" type="Node3D" parent="."]
+
+[node name="Tree01" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 3)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+radius = 0.55
+height = 6.4
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree01"]
+transform = Transform3D(1.25, 0, 0, 0, 1.05, 0, 0, 0, 1.25, 0, 7.5, 0)
+radius = 3.2
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree02" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 18)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree02"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+radius = 0.48
+height = 5.6
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree02"]
+transform = Transform3D(1.1, 0, 0, 0, 0.9, 0, 0, 0, 1.1, 0, 6.5, 0)
+radius = 2.8
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree03" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 30)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree03"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+radius = 0.6
+height = 7.0
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree03"]
+transform = Transform3D(1.35, 0, 0, 0, 1.15, 0, 0, 0, 1.35, 0, 8.2, 0)
+radius = 3.6
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree04" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 37)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree04"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+radius = 0.45
+height = 5.2
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree04"]
+transform = Transform3D(1.05, 0, 0, 0, 0.85, 0, 0, 0, 1.05, 0, 6, 0)
+radius = 2.6
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree05" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 38)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree05"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3, 0)
+radius = 0.58
+height = 6.6
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree05"]
+transform = Transform3D(1.3, 0, 0, 0, 1.1, 0, 0, 0, 1.3, 0, 7.8, 0)
+radius = 3.4
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree06" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 32)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree06"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
+radius = 0.5
+height = 5.8
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree06"]
+transform = Transform3D(1.15, 0, 0, 0, 0.95, 0, 0, 0, 1.15, 0, 6.8, 0)
+radius = 3.0
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree07" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 20)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree07"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+radius = 0.58
+height = 6.8
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree07"]
+transform = Transform3D(1.28, 0, 0, 0, 1.08, 0, 0, 0, 1.28, 0, 8, 0)
+radius = 3.4
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree08" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, 5)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree08"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7, 0)
+radius = 0.46
+height = 5.4
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree08"]
+transform = Transform3D(1.08, 0, 0, 0, 0.88, 0, 0, 0, 1.08, 0, 6.2, 0)
+radius = 2.7
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree09" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, -12)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree09"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+radius = 0.62
+height = 7.2
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree09"]
+transform = Transform3D(1.38, 0, 0, 0, 1.18, 0, 0, 0, 1.38, 0, 8.5, 0)
+radius = 3.7
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree10" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -28)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0, 0)
+radius = 0.52
+height = 6.0
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree10"]
+transform = Transform3D(1.2, 0, 0, 0, 1.0, 0, 0, 0, 1.2, 0, 7.2, 0)
+radius = 3.1
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree11" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -36)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+radius = 0.44
+height = 5.0
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree11"]
+transform = Transform3D(1.02, 0, 0, 0, 0.82, 0, 0, 0, 1.02, 0, 5.8, 0)
+radius = 2.5
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree12" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -38)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+radius = 0.54
+height = 6.2
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree12"]
+transform = Transform3D(1.22, 0, 0, 0, 1.02, 0, 0, 0, 1.22, 0, 7.4, 0)
+radius = 3.2
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree13" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -33)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
+radius = 0.64
+height = 7.4
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree13"]
+transform = Transform3D(1.4, 0, 0, 0, 1.2, 0, 0, 0, 1.4, 0, 8.8, 0)
+radius = 3.8
+material = SubResource("StandardMaterial3D_leaves")
+
+[node name="Tree14" type="Node3D" parent="TreeLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, -18)
+
+[node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, 0)
+radius = 0.49
+height = 5.7
+material = SubResource("StandardMaterial3D_trunk")
+
+[node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree14"]
+transform = Transform3D(1.12, 0, 0, 0, 0.92, 0, 0, 0, 1.12, 0, 6.6, 0)
+radius = 2.9
+material = SubResource("StandardMaterial3D_leaves")
