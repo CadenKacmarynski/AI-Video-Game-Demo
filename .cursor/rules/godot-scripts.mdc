@@ -1,0 +1,10 @@
+﻿---
+description: "Rules for writing strictly typed GDScript in Godot 4.5.1"
+globs: ["**/*.gd"]
+alwaysApply: false
+---
+
+# GDScript Coding Standards (Strict Typing)
+- **Static Typing**: mandatory for all variables and function returns (e.g., `var hp: int = 10`, `func _ready() -> void:`).
+- **Node References**: Use `@onready var` with explicit types: `@onready var sprite: Sprite2D = $Sprite2D`.
+- **Signals**: Use the new syntax: `signal_name.connect(_on_callback)`. Use snake_case in past tense (e.g., `health_depleted`).

@@ -1,0 +1,10 @@
+﻿---
+description: "Git commit and repository standards"
+globs: []
+alwaysApply: true
+---
+
+# Git Usage
+- Repository is initialized.
+- Provide technical commit messages: `[System] Action: Technical detail`.
+- Ensure `.godot/` and `.import/` folders are ignored.

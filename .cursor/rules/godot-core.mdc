@@ -1,0 +1,23 @@
+﻿---
+description: "Godot 4.5.1 core engine standards and workflow"
+globs: []
+alwaysApply: true
+---
+
+# Engine & Extension Context
+- **Version**: Godot 4.5.1 Stable (GDScript 2.0).
+- **Extension**: Using geequlim.godot-tools. 
+  - Use `Alt + O` to toggle script/scene.
+  - Keep the Godot Editor open for LSP (IntelliSense).
+
+# Scene & Performance
+- **Architecture**: Prefer composition over inheritance.
+- **Physics**: Use Physics Layers (Layer/Mask) instead of checking collisions via code.
+- **TileMaps**: Use `TileMapLayer` nodes only (TileMap is deprecated).
+- **Cleanup**: Always use `queue_free()` for safe node removal.
+
+# Workflow Strategy
+- **Always prioritize**: 
+  1. Static typing for error detection.
+  2. Scene Unique Nodes (`%NodeName`) for cleaner code.
+  3. Documentation strings for complex methods.

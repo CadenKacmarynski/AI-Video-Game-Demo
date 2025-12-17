@@ -1,0 +1,12 @@
+﻿---
+description: "Naming conventions for Godot project files, classes, and variables"
+globs: ["**/*.gd","**/*.tscn"]
+alwaysApply: false
+---
+
+# Naming Conventions
+- **Files**: snake_case (e.g., `player_controller.gd`).
+- **Classes**: PascalCase (e.g., `class_name PlayerController`).
+- **Nodes/Scenes**: PascalCase (e.g., `PlayerCharacter`).
+- **Methods/Variables**: snake_case.
+- **Constants**: ALL_CAPS_SNAKE_CASE.
