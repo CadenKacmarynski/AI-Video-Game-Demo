@@ -210,3 +210,4 @@ func _apply_fallback() -> void:
 	print("[GameDirector] Chaos Mode selected: ", JSON.stringify(random_action))
 	_apply_changes(random_action)
 	command_completed.emit(false, random_action)
+

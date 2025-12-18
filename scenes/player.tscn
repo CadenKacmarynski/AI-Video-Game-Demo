@@ -1,10 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqy5vk1r3qj7c"]
+[gd_scene load_steps=26 format=3 uid="uid://dqy5vk1r3qj7c"]
 
-[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_player"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_placeholder"]
-radius = 0.4
-height = 1.8
+[ext_resource type="Script" uid="uid://dkonll57lnc5x" path="res://scripts/entities/player.gd" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://b50j4j40ryrh3" path="res://assets/characters/Fortnite-Guy/Fortnite-guy.fbx" id="2_fortnite"]
+[ext_resource type="PackedScene" uid="uid://b2wcq1lpkaq8w" path="res://assets/animations/locomotion/Happy Idle.fbx" id="3_fjrip"]
+[ext_resource type="PackedScene" uid="uid://343ukyket4xp" path="res://assets/animations/locomotion/Walking.fbx" id="3_walking"]
+[ext_resource type="PackedScene" uid="uid://k5mj5dhcob0y" path="res://assets/animations/locomotion/Catwalk Walking.fbx" id="5_a38lo"]
+[ext_resource type="PackedScene" uid="uid://cet87run2n1r6" path="res://assets/animations/locomotion/Running.fbx" id="5_smehm"]
+[ext_resource type="PackedScene" uid="uid://5c6jx5ajpott" path="res://assets/animations/locomotion/Jumping.fbx" id="7_4ni07"]
+[ext_resource type="PackedScene" uid="uid://decwio70ctv1n" path="res://assets/animations/locomotion/Running Forward Flip.fbx" id="7_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://ce2f82wo76a42" path="res://assets/animations/locomotion/Running Jump.fbx" id="8_l71n6"]
+[ext_resource type="PackedScene" uid="uid://chkcaayhb8oe0" path="res://assets/animations/actions/Punching.fbx" id="10_ke2ow"]
+[ext_resource type="PackedScene" uid="uid://dr4gk7e4mgc5l" path="res://assets/animations/locomotion/Backflip.fbx" id="10_l71n6"]
+[ext_resource type="PackedScene" uid="uid://bm7l3ijpssh84" path="res://assets/animations/actions/Body Block.fbx" id="11_ujl30"]
+[ext_resource type="PackedScene" uid="uid://dihdqv1d82pbm" path="res://assets/animations/actions/Dodging.fbx" id="12_31cv2"]
+[ext_resource type="PackedScene" uid="uid://cod3v517yukxn" path="res://assets/animations/actions/Headbutt.fbx" id="13_pf23h"]
+[ext_resource type="PackedScene" uid="uid://6n50d0dpsaiv" path="res://assets/animations/actions/Boxing.fbx" id="14_dt7fs"]
+[ext_resource type="PackedScene" uid="uid://c1iw1j0shuksm" path="res://assets/animations/emotes/Waving.fbx" id="15_wqfne"]
+[ext_resource type="PackedScene" uid="uid://7n52eg1bgxp4" path="res://assets/animations/emotes/Swing Dancing.fbx" id="16_wnwbv"]
+[ext_resource type="PackedScene" uid="uid://gvd3dwfuf6j4" path="res://assets/animations/emotes/Ymca Dance.fbx" id="17_gl8cc"]
+[ext_resource type="PackedScene" uid="uid://c2wol1pabtslb" path="res://assets/animations/emotes/Salsa Dancing.fbx" id="18_487ah"]
+[ext_resource type="PackedScene" uid="uid://c6yrgo7yl25bg" path="res://assets/animations/emotes/Wave Hip Hop Dance.fbx" id="19_md1ol"]
+[ext_resource type="PackedScene" uid="uid://dbnkgwd04mvi8" path="res://assets/animations/emotes/Flair.fbx" id="20_bj30b"]
+[ext_resource type="PackedScene" uid="uid://dqeerx6fxi3wn" path="res://assets/animations/emotes/Shooting Arrow.fbx" id="21_jc3p3"]
+[ext_resource type="PackedScene" uid="uid://ct6xlk3rmshme" path="res://assets/animations/emotes/Punching Bag.fbx" id="22_hax0n"]
+[ext_resource type="PackedScene" uid="uid://b0bqcct7eg6ii" path="res://assets/animations/emotes/Dribble.fbx" id="24_ke2ow"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_collision"]
 radius = 0.4
@@ -12,13 +31,33 @@ height = 1.8
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_player")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-mesh = SubResource("CapsuleMesh_placeholder")
+character_skins = Array[PackedScene]([ExtResource("2_fortnite")])
+character_scale = 100.0
+anim_idle = ExtResource("3_fjrip")
+anim_walk = ExtResource("3_walking")
+anim_catwalk = ExtResource("5_a38lo")
+anim_run = ExtResource("5_smehm")
+anim_jump = ExtResource("7_4ni07")
+anim_run_jump = ExtResource("8_l71n6")
+anim_flip = ExtResource("7_ur7pv")
+anim_backflip = ExtResource("10_l71n6")
+anim_punch = ExtResource("10_ke2ow")
+anim_block = ExtResource("11_ujl30")
+anim_dodge = ExtResource("12_31cv2")
+anim_headbutt = ExtResource("13_pf23h")
+anim_boxing = ExtResource("14_dt7fs")
+anim_wave = ExtResource("15_wqfne")
+anim_swing_dance = ExtResource("16_wnwbv")
+anim_ymca = ExtResource("17_gl8cc")
+anim_salsa = ExtResource("18_487ah")
+anim_hip_hop = ExtResource("19_md1ol")
+anim_flair = ExtResource("20_bj30b")
+anim_arrow = ExtResource("21_jc3p3")
+anim_punching_bag = ExtResource("22_hax0n")
+anim_dribble = ExtResource("24_ke2ow")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03422302, 0.9, 0.018696547)
 shape = SubResource("CapsuleShape3D_collision")
 
 [node name="CameraPivot" type="Node3D" parent="."]
