@@ -1,0 +1,399 @@
+[gd_scene load_steps=15 format=3 uid="uid://cobstaclecourse1"]
+
+[ext_resource type="Script" path="res://scripts/obstacles/bounce_pad.gd" id="1_bounce"]
+[ext_resource type="Script" path="res://scripts/obstacles/rotating_obstacle.gd" id="2_rotating"]
+[ext_resource type="Script" path="res://scripts/obstacles/moving_platform.gd" id="3_moving"]
+
+[sub_resource type="StandardMaterial3D" id="mat_platform"]
+albedo_color = Color(0.4, 0.4, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_bounce"]
+albedo_color = Color(1.0, 0.3, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_ramp"]
+albedo_color = Color(0.6, 0.5, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_ball"]
+albedo_color = Color(0.9, 0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_hammer"]
+albedo_color = Color(0.3, 0.3, 0.35, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_pole"]
+albedo_color = Color(0.5, 0.5, 0.55, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_water"]
+albedo_color = Color(0.2, 0.5, 0.8, 0.7)
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="mat_bar"]
+albedo_color = Color(0.7, 0.6, 0.2, 1)
+
+[sub_resource type="CylinderShape3D" id="cylinder_shape"]
+radius = 1.5
+height = 0.6
+
+[sub_resource type="SphereShape3D" id="sphere_shape"]
+radius = 1.2
+
+[sub_resource type="BoxShape3D" id="box_shape"]
+size = Vector3(3, 0.5, 3)
+
+[node name="ObstacleCourse" type="Node3D"]
+
+[node name="Platforms" type="Node3D" parent="."]
+
+[node name="Platform1" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.5, 5)
+use_collision = true
+size = Vector3(3, 1, 3)
+material = SubResource("mat_platform")
+
+[node name="Platform2" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1.5, 8)
+use_collision = true
+size = Vector3(2.5, 1, 2.5)
+material = SubResource("mat_platform")
+
+[node name="Platform3" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2.5, 5)
+use_collision = true
+size = Vector3(2, 1, 2)
+material = SubResource("mat_platform")
+
+[node name="Platform4" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 3.5, 8)
+use_collision = true
+size = Vector3(2.5, 1, 2.5)
+material = SubResource("mat_platform")
+
+[node name="PlatformHigh" type="CSGBox3D" parent="Platforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5, 5)
+use_collision = true
+size = Vector3(4, 1, 4)
+material = SubResource("mat_platform")
+
+[node name="BouncePads" type="Node3D" parent="."]
+
+[node name="BouncePad1" type="Area3D" parent="BouncePads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.3, 5)
+script = ExtResource("1_bounce")
+bounce_force = 12.0
+
+[node name="MeshInstance3D" type="CSGCylinder3D" parent="BouncePads/BouncePad1"]
+use_collision = true
+radius = 1.5
+height = 0.6
+material = SubResource("mat_bounce")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncePads/BouncePad1"]
+shape = SubResource("cylinder_shape")
+
+[node name="BouncePad2" type="Area3D" parent="BouncePads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.3, -5)
+script = ExtResource("1_bounce")
+bounce_force = 18.0
+
+[node name="MeshInstance3D" type="CSGCylinder3D" parent="BouncePads/BouncePad2"]
+use_collision = true
+radius = 1.5
+height = 0.6
+material = SubResource("mat_bounce")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncePads/BouncePad2"]
+shape = SubResource("cylinder_shape")
+
+[node name="SuperBounce" type="Area3D" parent="BouncePads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.4, 0)
+script = ExtResource("1_bounce")
+bounce_force = 25.0
+
+[node name="MeshInstance3D" type="CSGCylinder3D" parent="BouncePads/SuperBounce"]
+use_collision = true
+radius = 2.0
+height = 0.8
+material = SubResource("mat_bounce")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncePads/SuperBounce"]
+shape = SubResource("cylinder_shape")
+
+[node name="Ramps" type="Node3D" parent="."]
+
+[node name="Ramp1" type="CSGBox3D" parent="Ramps"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 5, 1, -10)
+use_collision = true
+size = Vector3(4, 0.5, 10)
+material = SubResource("mat_ramp")
+
+[node name="Ramp2" type="CSGBox3D" parent="Ramps"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -5, 1.5, -12)
+use_collision = true
+size = Vector3(3, 0.5, 8)
+material = SubResource("mat_ramp")
+
+[node name="WipeoutSection" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+
+[node name="WipeoutPlatform" type="CSGBox3D" parent="WipeoutSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+use_collision = true
+size = Vector3(20, 0.5, 4)
+material = SubResource("mat_platform")
+
+[node name="Ball1" type="Node3D" parent="WipeoutSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.25, 0)
+script = ExtResource("2_rotating")
+rotation_speed = 1.5
+
+[node name="BallMesh" type="CSGSphere3D" parent="WipeoutSection/Ball1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+radius = 1.2
+material = SubResource("mat_ball")
+
+[node name="BallArea" type="Area3D" parent="WipeoutSection/Ball1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WipeoutSection/Ball1/BallArea"]
+shape = SubResource("sphere_shape")
+
+[node name="Ball2" type="Node3D" parent="WipeoutSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+script = ExtResource("2_rotating")
+rotation_speed = -2.0
+
+[node name="BallMesh" type="CSGSphere3D" parent="WipeoutSection/Ball2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+radius = 1.5
+material = SubResource("mat_ball")
+
+[node name="BallArea" type="Area3D" parent="WipeoutSection/Ball2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WipeoutSection/Ball2/BallArea"]
+shape = SubResource("sphere_shape")
+
+[node name="Ball3" type="Node3D" parent="WipeoutSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.25, 0)
+script = ExtResource("2_rotating")
+rotation_speed = 1.8
+
+[node name="BallMesh" type="CSGSphere3D" parent="WipeoutSection/Ball3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+radius = 1.0
+material = SubResource("mat_ball")
+
+[node name="BallArea" type="Area3D" parent="WipeoutSection/Ball3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WipeoutSection/Ball3/BallArea"]
+shape = SubResource("sphere_shape")
+
+[node name="HammerSection" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -15)
+
+[node name="HammerPole" type="CSGCylinder3D" parent="HammerSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+use_collision = true
+radius = 0.3
+height = 8
+material = SubResource("mat_pole")
+
+[node name="HammerRotator" type="Node3D" parent="HammerSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("2_rotating")
+rotation_speed = 2.5
+knockback_force = 12.0
+
+[node name="HammerArm" type="CSGBox3D" parent="HammerSection/HammerRotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+size = Vector3(6, 0.4, 0.4)
+material = SubResource("mat_pole")
+
+[node name="HammerHead" type="CSGBox3D" parent="HammerSection/HammerRotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 0)
+size = Vector3(2, 1.5, 1.5)
+material = SubResource("mat_hammer")
+
+[node name="HammerArea" type="Area3D" parent="HammerSection/HammerRotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HammerSection/HammerRotator/HammerArea"]
+shape = SubResource("box_shape")
+
+[node name="Pool" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -1.5, -15)
+
+[node name="PoolWalls" type="CSGBox3D" parent="Pool"]
+use_collision = true
+size = Vector3(15, 3, 15)
+material = SubResource("mat_platform")
+
+[node name="PoolInner" type="CSGBox3D" parent="Pool"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+operation = 2
+size = Vector3(13, 2.5, 13)
+
+[node name="Water" type="CSGBox3D" parent="Pool"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+size = Vector3(12.5, 2, 12.5)
+material = SubResource("mat_water")
+
+[node name="MonkeyBars" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -15)
+
+[node name="LeftPost" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 0)
+use_collision = true
+radius = 0.2
+height = 6
+material = SubResource("mat_pole")
+
+[node name="RightPost" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, 0)
+use_collision = true
+radius = 0.2
+height = 6
+material = SubResource("mat_pole")
+
+[node name="TopBar" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 5.8, 0)
+use_collision = true
+radius = 0.15
+height = 6.5
+material = SubResource("mat_bar")
+
+[node name="Bar1" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2, 5.5, 0)
+use_collision = true
+radius = 0.1
+height = 6.5
+material = SubResource("mat_bar")
+
+[node name="Bar2" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1, 5.5, 0)
+use_collision = true
+radius = 0.1
+height = 6.5
+material = SubResource("mat_bar")
+
+[node name="Bar3" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 5.5, 0)
+use_collision = true
+radius = 0.1
+height = 6.5
+material = SubResource("mat_bar")
+
+[node name="Bar4" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1, 5.5, 0)
+use_collision = true
+radius = 0.1
+height = 6.5
+material = SubResource("mat_bar")
+
+[node name="Bar5" type="CSGCylinder3D" parent="MonkeyBars"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 2, 5.5, 0)
+use_collision = true
+radius = 0.1
+height = 6.5
+material = SubResource("mat_bar")
+
+[node name="MovingPlatforms" type="Node3D" parent="."]
+
+[node name="MovingPlatform1" type="AnimatableBody3D" parent="MovingPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 5)
+script = ExtResource("3_moving")
+move_offset = Vector3(0, 4, 0)
+move_duration = 3.0
+
+[node name="Mesh" type="CSGBox3D" parent="MovingPlatforms/MovingPlatform1"]
+use_collision = true
+size = Vector3(3, 0.5, 3)
+material = SubResource("mat_platform")
+
+[node name="MovingPlatform2" type="AnimatableBody3D" parent="MovingPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, -5)
+script = ExtResource("3_moving")
+move_offset = Vector3(8, 0, 0)
+move_duration = 4.0
+
+[node name="Mesh" type="CSGBox3D" parent="MovingPlatforms/MovingPlatform2"]
+use_collision = true
+size = Vector3(3, 0.5, 3)
+material = SubResource("mat_platform")
+
+[node name="SteppingStones" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="Stone1" type="CSGCylinder3D" parent="SteppingStones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+use_collision = true
+radius = 1.0
+height = 0.8
+material = SubResource("mat_platform")
+
+[node name="Stone2" type="CSGCylinder3D" parent="SteppingStones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.6, 1.5)
+use_collision = true
+radius = 0.8
+height = 1.2
+material = SubResource("mat_platform")
+
+[node name="Stone3" type="CSGCylinder3D" parent="SteppingStones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.8, 0)
+use_collision = true
+radius = 0.9
+height = 1.6
+material = SubResource("mat_platform")
+
+[node name="Stone4" type="CSGCylinder3D" parent="SteppingStones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.0, 2)
+use_collision = true
+radius = 1.0
+height = 2.0
+material = SubResource("mat_platform")
+
+[node name="Stone5" type="CSGCylinder3D" parent="SteppingStones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.2, 0)
+use_collision = true
+radius = 0.85
+height = 2.4
+material = SubResource("mat_platform")
+
+[node name="ClimbWall" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 10)
+
+[node name="Wall" type="CSGBox3D" parent="ClimbWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+use_collision = true
+size = Vector3(8, 6, 1)
+material = SubResource("mat_platform")
+
+[node name="Ledge1" type="CSGBox3D" parent="ClimbWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0.8)
+use_collision = true
+size = Vector3(1.5, 0.3, 1)
+material = SubResource("mat_ramp")
+
+[node name="Ledge2" type="CSGBox3D" parent="ClimbWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.5, 0.8)
+use_collision = true
+size = Vector3(1.5, 0.3, 1)
+material = SubResource("mat_ramp")
+
+[node name="Ledge3" type="CSGBox3D" parent="ClimbWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3.5, 0.8)
+use_collision = true
+size = Vector3(1.5, 0.3, 1)
+material = SubResource("mat_ramp")
+
+[node name="Ledge4" type="CSGBox3D" parent="ClimbWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.5, 0.8)
+use_collision = true
+size = Vector3(1.5, 0.3, 1)
+material = SubResource("mat_ramp")
+
+[node name="TopPlatform" type="CSGBox3D" parent="ClimbWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.25, 2)
+use_collision = true
+size = Vector3(8, 0.5, 3)
+material = SubResource("mat_platform")

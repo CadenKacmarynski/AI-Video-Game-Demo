@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8xm2k1p5qw3a"]
+[gd_scene load_steps=11 format=3 uid="uid://c8xm2k1p5qw3a"]
 
 [ext_resource type="PackedScene" uid="uid://dqy5vk1r3qj7c" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://c2k848p6xoj3w" path="res://scenes/obstacles/obstacle_course.tscn" id="2_0wfyh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.3, 0.5, 0.85, 1)
@@ -22,18 +23,18 @@ ambient_light_energy = 0.7
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass"]
 albedo_color = Color(0.32, 0.55, 0.18, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cloud"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.85)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass_tuft"]
+albedo_color = Color(0.28, 0.5, 0.15, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trunk"]
 albedo_color = Color(0.32, 0.22, 0.12, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leaves"]
 albedo_color = Color(0.22, 0.42, 0.14, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grass_tuft"]
-albedo_color = Color(0.28, 0.5, 0.15, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cloud"]
-albedo_color = Color(1, 1, 1, 0.85)
-transparency = 1
 
 [node name="Main" type="Node3D"]
 
@@ -95,7 +96,6 @@ material = SubResource("StandardMaterial3D_cloud")
 
 [node name="Tuft01" type="CSGSphere3D" parent="GrassTufts"]
 transform = Transform3D(0.6, 0, 0, 0, 0.4, 0, 0, 0, 0.5, 3, 0.1, 5)
-radius = 0.5
 material = SubResource("StandardMaterial3D_grass_tuft")
 
 [node name="Tuft02" type="CSGSphere3D" parent="GrassTufts"]
@@ -135,7 +135,6 @@ material = SubResource("StandardMaterial3D_grass_tuft")
 
 [node name="Tuft09" type="CSGSphere3D" parent="GrassTufts"]
 transform = Transform3D(0.62, 0, 0, 0, 0.4, 0, 0, 0, 0.52, 5, 0.1, -18)
-radius = 0.5
 material = SubResource("StandardMaterial3D_grass_tuft")
 
 [node name="Tuft10" type="CSGSphere3D" parent="GrassTufts"]
@@ -230,7 +229,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 32)
 
 [node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree06"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
-radius = 0.5
 height = 5.8
 material = SubResource("StandardMaterial3D_trunk")
 
@@ -285,13 +283,13 @@ material = SubResource("StandardMaterial3D_leaves")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -28)
 
 [node name="Trunk" type="CSGCylinder3D" parent="TreeLine/Tree10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 radius = 0.52
 height = 6.0
 material = SubResource("StandardMaterial3D_trunk")
 
 [node name="Leaves" type="CSGSphere3D" parent="TreeLine/Tree10"]
-transform = Transform3D(1.2, 0, 0, 0, 1.0, 0, 0, 0, 1.2, 0, 7.2, 0)
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, 0, 7.2, 0)
 radius = 3.1
 material = SubResource("StandardMaterial3D_leaves")
 
@@ -350,3 +348,5 @@ material = SubResource("StandardMaterial3D_trunk")
 transform = Transform3D(1.12, 0, 0, 0, 0.92, 0, 0, 0, 1.12, 0, 6.6, 0)
 radius = 2.9
 material = SubResource("StandardMaterial3D_leaves")
+
+[node name="ObstacleCourse" parent="." instance=ExtResource("2_0wfyh")]
