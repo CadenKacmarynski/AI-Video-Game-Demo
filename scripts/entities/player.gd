@@ -86,12 +86,14 @@ const ANIM_DRIBBLE: String = "Dribble"
 var _animation_player: AnimationPlayer = null
 var _current_character: Node3D = null
 var _locked_xz: Vector2 = Vector2.ZERO
+var _emote_wheel: EmoteWheel = null
 
 # State
 var _is_sprinting: bool = false
 var _is_catwalking: bool = false
 var _is_jumping: bool = false
 var _playing_action: bool = false
+var _emote_wheel_open: bool = false
 
 # Lists for animation categorization
 var _action_anims: Array[String] = [ANIM_PUNCH, ANIM_BLOCK, ANIM_DODGE, ANIM_HEADBUTT, ANIM_BOXING, ANIM_BACKFLIP]
@@ -119,6 +121,27 @@ func _ready() -> void:
 			print("[Player] Warning: No AnimationPlayer found")
 	else:
 		_load_character(current_skin_index)
+	
+	# Setup emote wheel
+	_setup_emote_wheel()
+
+
+func _setup_emote_wheel() -> void:
+	var wheel_scene: PackedScene = preload("res://scenes/ui/emote_wheel.tscn")
+	_emote_wheel = wheel_scene.instantiate()
+	
+	# Add to CanvasLayer so it's always on top
+	var canvas: CanvasLayer = CanvasLayer.new()
+	canvas.name = "EmoteWheelLayer"
+	add_child(canvas)
+	canvas.add_child(_emote_wheel)
+	
+	_emote_wheel.emote_selected.connect(_on_emote_wheel_selected)
+
+
+func _on_emote_wheel_selected(emote_id: String) -> void:
+	_emote_wheel_open = false
+	_play_action(emote_id)
 
 
 func _load_character(index: int) -> void:
@@ -340,7 +363,23 @@ func _play_action(anim_name: String) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventKey or not event.pressed:
+	if not event is InputEventKey:
+		return
+	
+	# Emote wheel: B to open, release to close and trigger
+	if event.keycode == KEY_B:
+		if event.pressed and not _emote_wheel_open:
+			_emote_wheel_open = true
+			if _emote_wheel:
+				_emote_wheel.open()
+		elif not event.pressed and _emote_wheel_open:
+			_emote_wheel_open = false
+			if _emote_wheel:
+				_emote_wheel.close(true)
+		return
+	
+	# Skip other keys if wheel is open or key not pressed
+	if _emote_wheel_open or not event.pressed:
 		return
 	
 	match event.keycode:

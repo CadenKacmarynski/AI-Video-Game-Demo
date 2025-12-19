@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkemotewheel01"]
+
+[ext_resource type="Script" path="res://scripts/ui/emote_wheel.gd" id="1_script"]
+
+[node name="EmoteWheel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 300.0
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 300.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 138.0
+offset_right = 225.0
+offset_bottom = 162.0
+text = "Select Emote"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Segments" type="Control" parent="."]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 300.0
