@@ -1,10 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://dqy5vk1r3qj7c"]
+[gd_scene load_steps=29 format=3 uid="uid://dqy5vk1r3qj7c"]
 
 [ext_resource type="Script" uid="uid://dkonll57lnc5x" path="res://scripts/entities/player.gd" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://b50j4j40ryrh3" path="res://assets/characters/Fortnite-Guy/Fortnite-guy.fbx" id="2_fortnite"]
+[ext_resource type="PackedScene" uid="uid://c2lhv6p6gjh6d" path="res://assets/characters/Jake/Jake.fbx" id="3_31cv2"]
 [ext_resource type="PackedScene" uid="uid://b2wcq1lpkaq8w" path="res://assets/animations/locomotion/Happy Idle.fbx" id="3_fjrip"]
 [ext_resource type="PackedScene" uid="uid://343ukyket4xp" path="res://assets/animations/locomotion/Walking.fbx" id="3_walking"]
+[ext_resource type="PackedScene" uid="uid://bvxqbyoe7658d" path="res://assets/characters/Simone/Simone.fbx" id="4_pf23h"]
 [ext_resource type="PackedScene" uid="uid://k5mj5dhcob0y" path="res://assets/animations/locomotion/Catwalk Walking.fbx" id="5_a38lo"]
+[ext_resource type="PackedScene" uid="uid://lva6yei0a0fq" path="res://assets/characters/Caitlin/Caitlin.fbx" id="5_dt7fs"]
 [ext_resource type="PackedScene" uid="uid://cet87run2n1r6" path="res://assets/animations/locomotion/Running.fbx" id="5_smehm"]
 [ext_resource type="PackedScene" uid="uid://5c6jx5ajpott" path="res://assets/animations/locomotion/Jumping.fbx" id="7_4ni07"]
 [ext_resource type="PackedScene" uid="uid://decwio70ctv1n" path="res://assets/animations/locomotion/Running Forward Flip.fbx" id="7_ur7pv"]
@@ -31,8 +34,9 @@ height = 1.8
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_player")
-character_skins = Array[PackedScene]([ExtResource("2_fortnite")])
-character_scale = 100.0
+character_skins = Array[PackedScene]([ExtResource("2_fortnite"), ExtResource("3_31cv2"), ExtResource("4_pf23h"), ExtResource("5_dt7fs")])
+character_scales = Array[float]([100.0, 100.0, 100.0, 100.0])
+current_skin_index = 1
 anim_idle = ExtResource("3_fjrip")
 anim_walk = ExtResource("3_walking")
 anim_catwalk = ExtResource("5_a38lo")

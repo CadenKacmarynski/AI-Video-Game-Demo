@@ -13,8 +13,8 @@ extends CharacterBody3D
 # Character selection
 @export_group("Character Skins")
 @export var character_skins: Array[PackedScene] = []
+@export var character_scales: Array[float] = [100.0]  # Per-character scale (match array order)
 @export var current_skin_index: int = 0
-@export var character_scale: float = 0.01
 
 # Animation offset fix
 @export_group("Animation Fixes")
@@ -122,6 +122,10 @@ func _ready() -> void:
 
 
 func _load_character(index: int) -> void:
+	# Disconnect old signal if exists
+	if _animation_player and _animation_player.animation_finished.is_connected(_on_animation_finished):
+		_animation_player.animation_finished.disconnect(_on_animation_finished)
+	
 	if _current_character:
 		_current_character.queue_free()
 		_current_character = null
@@ -132,12 +136,23 @@ func _load_character(index: int) -> void:
 		if skin_scene:
 			_current_character = skin_scene.instantiate()
 			_current_character.name = "CharacterModel"
-			_current_character.scale = Vector3(character_scale, character_scale, character_scale)
+			# Use per-character scale if available, otherwise default to 100
+			var scale_value: float = character_scales[index] if index < character_scales.size() else 100.0
+			_current_character.scale = Vector3(scale_value, scale_value, scale_value)
 			add_child(_current_character)
+			
+			_locked_xz = Vector2(_current_character.position.x, _current_character.position.z)
 			_animation_player = _find_animation_player(_current_character)
+			
 			if _animation_player:
+				print("[Player] Loaded character: ", index)
 				_import_all_animations()
+				print("[Player] Animations: ", _animation_player.get_animation_list())
+				_animation_player.play(ANIM_IDLE)
+				_apply_y_offset(ANIM_IDLE)
 				_animation_player.animation_finished.connect(_on_animation_finished)
+			else:
+				print("[Player] Warning: No AnimationPlayer in character ", index)
 
 
 func _import_all_animations() -> void:
