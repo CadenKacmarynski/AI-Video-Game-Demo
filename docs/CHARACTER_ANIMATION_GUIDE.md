@@ -1,6 +1,6 @@
 # Character & Animation System Guide
 
-This document covers the complete setup for characters and animations in the Signet Career Fair Demo.
+This document covers the complete setup for characters and animations in the AI Sandbox Demo.
 
 ---
 
