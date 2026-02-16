@@ -156,6 +156,14 @@ res://
 └── docs/                # Additional documentation
 ```
 
+## STEM Camp Labs
+
+This repo includes a **lab series for middle-school STEM camps**. Students install Godot, explore the game, tweak physics in the Inspector, add a key in code, and (instructor-led) see the AI Director change the game from natural language.
+
+- **[Labs overview](labs/README.md)** – Lab order, time estimates, and what you need
+- **[Instructor guide](labs/INSTRUCTOR.md)** – Setup, timing, pitfalls, and discussion prompts
+- **[Glossary](docs/GLOSSARY.md)** – Age-appropriate definitions for scene, node, script, export, etc.
+
 ## Documentation
 
 - [Character Animation Guide](docs/CHARACTER_ANIMATION_GUIDE.md) - How to add new characters and animations
